@@ -9,9 +9,9 @@ metadata:
     app.kubernetes.io/component: wordpress
 spec:
   selector:
-      matchLabels:
-        app.kubernetes.io/name: wordpress
-        app.kubernetes.io/component: wordpress
+    matchLabels:
+      app.kubernetes.io/name: wordpress
+      app.kubernetes.io/component: wordpress
   strategy:
     type: Recreate
   template:

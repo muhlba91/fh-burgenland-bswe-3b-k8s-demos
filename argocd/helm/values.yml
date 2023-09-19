@@ -3,7 +3,7 @@
 configs:
   params:
     server.insecure: true
-  
+
   repositories:
     bitnami:
       name: bitnami
