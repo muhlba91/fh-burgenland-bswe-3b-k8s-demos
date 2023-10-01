@@ -26,3 +26,8 @@ applications:
     project: vclusters
     path: *library_chart_path
     valuesPath: argocd/vclusters/clusters
+    ignoreDifferences:
+      - group: "*"
+        kind: "*"
+        managedFieldsManagers:
+          - vcluster
