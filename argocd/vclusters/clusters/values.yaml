@@ -25,3 +25,8 @@ applications:
     namespace: vcluster
     releaseName: vcluster
     helm: true
+    ignoreDifferences:
+      - group: "*"
+        kind: "*"
+        managedFieldsManagers:
+          - vcluster
