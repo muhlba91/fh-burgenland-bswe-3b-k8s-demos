@@ -1,0 +1,4 @@
+---
+vcluster-k0s:
+  ingress:
+    host: vcluster.bsweb3.student.muehlbachler.xyz

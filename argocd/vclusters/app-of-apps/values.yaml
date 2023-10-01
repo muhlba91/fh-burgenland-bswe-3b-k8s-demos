@@ -1,0 +1,28 @@
+---
+libraryChartPath: &library_chart_path argocd/library/charts/applications
+gitRepository: &repo
+  repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
+  targetRevision: HEAD
+
+global:
+  prefix: app-of-apps
+  spec:
+    namespace: argocd
+    source: *repo
+    values: *repo
+    syncWave: 0
+    helm:
+      enabled: true
+      valueFiles:
+        - values.yaml
+    enableAutomated: false
+    syncOptions: []
+
+projects:
+  - name: vclusters
+
+applications:
+  vclusters:
+    project: vclusters
+    path: *library_chart_path
+    valuesPath: argocd/vlcusters/clusters
