@@ -26,7 +26,11 @@ applications:
     releaseName: vcluster
     helm: true
     ignoreDifferences:
-      - group: "*"
-        kind: "*"
-        managedFieldsManagers:
-          - vcluster
+      - group: ""
+        kind: Secret
+        jsonPointers:
+          - /data/CONFIG_READY
+      - group: ""
+        kind: Secret
+        jsonPointers:
+          - /data/config.yaml
