@@ -25,4 +25,4 @@ applications:
   vclusters:
     project: vclusters
     path: *library_chart_path
-    valuesPath: argocd/vlcusters/clusters
+    valuesPath: argocd/vclusters/clusters
