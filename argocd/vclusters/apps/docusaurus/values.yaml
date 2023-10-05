@@ -42,7 +42,7 @@ applicationsets:
               - /data/config.yaml
         syncPolicy:
           automated:
-            prune: false
+            prune: true
             allowEmpty: false
             selfHeal: true
           syncOptions:
@@ -70,7 +70,7 @@ applicationsets:
           server: https://kubernetes.default.svc
         syncPolicy:
           automated:
-            prune: false
+            prune: true
             allowEmpty: false
             selfHeal: true
           syncOptions:
@@ -112,7 +112,7 @@ applicationsets:
           server: "https://cluster-docusaurus-{{ number }}.cluster-docusaurus-{{ number }}"
         syncPolicy:
           automated:
-            prune: false
+            prune: true
             allowEmpty: false
             selfHeal: true
           syncOptions:
