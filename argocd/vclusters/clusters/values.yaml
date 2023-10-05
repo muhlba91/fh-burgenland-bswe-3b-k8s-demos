@@ -73,3 +73,42 @@ applicationsets:
           syncOptions:
             - CreateNamespace=true
             - FailOnSharedResource=true
+  - name: vcluster-demo-app
+    generators:
+      - list:
+          elements: *vclusters
+    template:
+      metadata:
+        name: "cluster-demo-app-{{ name }}"
+        namespace: argocd
+      spec:
+        project: vclusters
+        sources:
+          - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
+            targetRevision: HEAD
+            path: argocd/library/charts/demo-app
+            helm:
+              releaseName: "cluster-demo-app-{{ name }}"
+              valuesObject:
+                ingress:
+                  enabled: true
+                  hosts:
+                    - host: "demo-app-{{ name }}.bsweb3.student.muehlbachler.xyz"
+                      paths:
+                        - path: /
+                          pathType: ImplementationSpecific
+                  tls:
+                    - secretName: demo-app-tls-cert
+                      hosts:
+                        - "demo-app-{{ name }}.bsweb3.student.muehlbachler.xyz"
+        destination:
+          namespace: demo-app
+          server: "https://cluster-{{ name }}.cluster-{{ name }}"
+        syncPolicy:
+          automated:
+            prune: false
+            allowEmpty: false
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true
+            - FailOnSharedResource=true
