@@ -27,7 +27,7 @@ applicationsets:
               valuesObject:
                 vcluster-k0s:
                   ingress:
-                    host: "cluster-{{ name }}.bsweb3.student.muehlbachler.xyz"
+                    host: "cluster-docusaurus-{{ number }}.bsweb3.student.muehlbachler.xyz"
         destination:
           namespace: "cluster-docusaurus-{{ number }}"
           server: https://kubernetes.default.svc
