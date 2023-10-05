@@ -1,36 +1,75 @@
 ---
-global:
-  spec:
-    namespace: argocd
-    source:
-      repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
-      targetRevision: HEAD
-    values:
-      repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
-      targetRevision: HEAD
-    syncWave: 0
-    helm:
-      enabled: false
-      valueFiles:
-        - values.yaml
-    enableAutomated: false
-    syncOptions: []
+vclusters: &vclusters
+  - name: demo
 
-applications:
-  vcluster:
-    project: vclusters
-    path: argocd/vclusters/chart
-    valuesPath: argocd/vclusters/clusters/vcluster
-    disabled: false
-    namespace: vcluster
-    releaseName: vcluster
-    helm: true
-    ignoreDifferences:
-      - group: ""
-        kind: Secret
-        jsonPointers:
-          - /data/CONFIG_READY
-      - group: ""
-        kind: Secret
-        jsonPointers:
-          - /data/config.yaml
+applicationsets:
+  - name: vcluster
+    generators:
+      - list:
+          elements: *vclusters
+    template:
+      metadata:
+        name: "cluster-{{ name }}"
+        namespace: argocd
+      spec:
+        project: vcluster
+        sources:
+          - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
+            targetRevision: HEAD
+            path: argocd/vclusters/charts/vcluster
+            helm:
+              releaseName: "cluster-{{ name }}"
+              valuesObject:
+                vcluster-k0s:
+                  ingress:
+                    host: "cluster-{{ name }}.bsweb3.student.muehlbachler.xyz"
+        destination:
+          namespace: "cluster-{{ name }}"
+          server: https://kubernetes.default.svc
+        ignoreDifferences:
+          - group: ""
+            kind: Secret
+            jsonPointers:
+              - /data/CONFIG_READY
+          - group: ""
+            kind: Secret
+            jsonPointers:
+              - /data/config.yaml
+        syncPolicy:
+          automated:
+            prune: false
+            allowEmpty: false
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true
+            - FailOnSharedResource=true
+  - name: vcluster-hostpath-mapper
+    generators:
+      - list:
+          elements: *vclusters
+    template:
+      metadata:
+        name: "cluster-hostpath-mapper-{{ name }}"
+        namespace: argocd
+      spec:
+        project: vcluster
+        sources:
+          - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
+            targetRevision: HEAD
+            path: argocd/vclusters/charts/hpm
+            helm:
+              releaseName: "cluster-hostpath-mapper-{{ name }}"
+              valuesObject:
+                vcluster-k0s:
+                  VclusterReleaseName: "cluster-{{ name }}"
+        destination:
+          namespace: "cluster-{{ name }}"
+          server: https://kubernetes.default.svc
+        syncPolicy:
+          automated:
+            prune: false
+            allowEmpty: false
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true
+            - FailOnSharedResource=true
