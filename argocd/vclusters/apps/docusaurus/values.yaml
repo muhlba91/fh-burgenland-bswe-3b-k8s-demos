@@ -84,29 +84,30 @@ applicationsets:
         namespace: argocd
         annotations:
           notifications.argoproj.io/subscribe.on-deployed.github: ""
+          revision: "{{ head_sha }}"
       spec:
         project: docusaurus
-        source:
-          repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
-          targetRevision: "{{ head_sha }}"
-          path: argocd/library/charts/demo-app
-          helm:
-            releaseName: docusaurus
-            valuesObject:
-              image:
-                repository: quay.io/muhlba91/fh-burgenland-bswe-3b-docusaurus
-                tag: "{{ head_sha }}"
-              ingress:
-                enabled: true
-                hosts:
-                  - host: "docusaurus-{{ number }}.demos.bsweb3.student.muehlbachler.xyz"
-                    paths:
-                      - path: /
-                        pathType: ImplementationSpecific
-                tls:
-                  - secretName: docusaurus-tls-cert
-                    hosts:
-                      - "docusaurus-{{ number }}.demos.bsweb3.student.muehlbachler.xyz"
+        sources:
+          - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
+            targetRevision: HEAD
+            path: argocd/library/charts/demo-app
+            helm:
+              releaseName: docusaurus
+              valuesObject:
+                image:
+                  repository: quay.io/muhlba91/fh-burgenland-bswe-3b-docusaurus
+                  tag: "{{ head_sha }}"
+                ingress:
+                  enabled: true
+                  hosts:
+                    - host: "docusaurus-{{ number }}.demos.bsweb3.student.muehlbachler.xyz"
+                      paths:
+                        - path: /
+                          pathType: ImplementationSpecific
+                  tls:
+                    - secretName: docusaurus-tls-cert
+                      hosts:
+                        - "docusaurus-{{ number }}.demos.bsweb3.student.muehlbachler.xyz"
         destination:
           namespace: docusaurus
           server: "https://cluster-docusaurus-{{ number }}.cluster-docusaurus-{{ number }}"
