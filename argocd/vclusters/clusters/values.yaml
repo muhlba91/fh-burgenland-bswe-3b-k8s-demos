@@ -93,14 +93,14 @@ applicationsets:
                 ingress:
                   enabled: true
                   hosts:
-                    - host: "demo-app-{{ name }}.bsweb3.student.muehlbachler.xyz"
+                    - host: "cluster-{{ name }}-demo.apps.bsweb3.student.muehlbachler.xyz"
                       paths:
                         - path: /
                           pathType: ImplementationSpecific
                   tls:
                     - secretName: demo-app-tls-cert
                       hosts:
-                        - "demo-app-{{ name }}.bsweb3.student.muehlbachler.xyz"
+                        - "cluster-{{ name }}-demo.apps.bsweb3.student.muehlbachler.xyz"
         destination:
           namespace: demo-app
           server: "https://cluster-{{ name }}.cluster-{{ name }}"
