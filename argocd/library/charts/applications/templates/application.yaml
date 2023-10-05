@@ -49,8 +49,8 @@ spec:
     {{- if (default $.Values.global.spec.enableAutomated $app.enableAutomated) }}
     automated:
       {{- if default $.Values.global.spec.helm.enabled $app.helm }}
-      prune: false
-      allowEmpty: false
+      prune: true
+      allowEmpty: true
       {{- end }}
       selfHeal: true
     {{- end }}
