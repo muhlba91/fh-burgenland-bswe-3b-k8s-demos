@@ -60,7 +60,7 @@ applicationsets:
             helm:
               releaseName: "cluster-hostpath-mapper-{{ name }}"
               valuesObject:
-                vcluster-k0s:
+                vcluster-hpm:
                   VclusterReleaseName: "cluster-{{ name }}"
         destination:
           namespace: "cluster-{{ name }}"
