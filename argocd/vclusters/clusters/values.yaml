@@ -12,7 +12,7 @@ applicationsets:
         name: "cluster-{{ name }}"
         namespace: argocd
       spec:
-        project: vcluster
+        project: vclusters
         sources:
           - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
             targetRevision: HEAD
@@ -52,7 +52,7 @@ applicationsets:
         name: "cluster-hostpath-mapper-{{ name }}"
         namespace: argocd
       spec:
-        project: vcluster
+        project: vclusters
         sources:
           - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
             targetRevision: HEAD
