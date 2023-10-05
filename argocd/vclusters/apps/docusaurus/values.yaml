@@ -5,8 +5,8 @@ generator: &pullRequest
         owner: muhlba91
         repo: fh-burgenland-bswe-3b-docusaurus
         appSecretName: fh-burgenland-bswe-3b-creds
-        filters:
-          branchMatch: "((?!renovate).)*"
+      filters:
+        branchMatch: "((?!renovate).)*"
       requeueAfterSeconds: 300
 
 applicationsets:
