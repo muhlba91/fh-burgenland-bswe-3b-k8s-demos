@@ -42,7 +42,7 @@ spec:
       memory: 128Mi
       cpu: 100m
     min:
-      memory: 128Mi
+      memory: 64Mi
       cpu: 10m
     max:
       memory: 2Gi
