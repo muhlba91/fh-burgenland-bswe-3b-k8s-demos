@@ -19,6 +19,7 @@ global:
 
 projects:
   - name: vclusters
+  - name: docusaurus
 
 applications:
   vclusters:
@@ -27,3 +28,9 @@ applications:
     sourceTargetRevision: 1.4.1
     sourceRepoChart: argocd-apps
     valuesPath: argocd/vclusters/clusters
+  docusaurus:
+    project: docusaurus
+    sourceRepoURL: https://argoproj.github.io/argo-helm
+    sourceTargetRevision: 1.4.1
+    sourceRepoChart: argocd-apps
+    valuesPath: argocd/vclusters/apps/docusaurus

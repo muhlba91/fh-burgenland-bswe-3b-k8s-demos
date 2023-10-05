@@ -1,0 +1,118 @@
+---
+pullRequest: &pullRequest
+  github:
+    owner: muhlba91
+    repo: fh-burgenland-bswe-3b-docusaurus
+    appSecretName: fh-burgenland-bswe-3b-creds
+  requeueAfterSeconds: 300
+
+applicationsets:
+  - name: docusaurus-vcluster
+    generators:
+      pullRequest: *pullRequest
+    template:
+      metadata:
+        name: "cluster-docusaurus-{{ number }}"
+        namespace: argocd
+      spec:
+        project: docusaurus
+        sources:
+          - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
+            targetRevision: HEAD
+            path: argocd/vclusters/charts/vcluster
+            helm:
+              releaseName: "cluster-docusaurus-{{ number }}"
+              valuesObject:
+                vcluster-k0s:
+                  ingress:
+                    host: "cluster-{{ name }}.bsweb3.student.muehlbachler.xyz"
+        destination:
+          namespace: "cluster-docusaurus-{{ number }}"
+          server: https://kubernetes.default.svc
+        ignoreDifferences:
+          - group: ""
+            kind: Secret
+            jsonPointers:
+              - /data/CONFIG_READY
+          - group: ""
+            kind: Secret
+            jsonPointers:
+              - /data/config.yaml
+        syncPolicy:
+          automated:
+            prune: false
+            allowEmpty: false
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true
+            - FailOnSharedResource=true
+  - name: docusaurus-vcluster-hostpath-mapper
+    generators:
+      pullRequest: *pullRequest
+    template:
+      metadata:
+        name: "cluster-docusaurus-hostpath-mapper-{{ number }}"
+        namespace: argocd
+      spec:
+        project: docusaurus
+        sources:
+          - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
+            targetRevision: HEAD
+            path: argocd/vclusters/charts/hpm
+            helm:
+              releaseName: "cluster-docusaurus-hostpath-mapper-{{ name }}"
+              valuesObject:
+                vcluster-hpm:
+                  VclusterReleaseName: "cluster-docusaurus-{{ name }}"
+        destination:
+          namespace: "cluster-docusaurus-hostpath-mapper-{{ number }}"
+          server: https://kubernetes.default.svc
+        syncPolicy:
+          automated:
+            prune: false
+            allowEmpty: false
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true
+            - FailOnSharedResource=true
+  - name: docusaurus-vcluster-preview-app
+    generators:
+      pullRequest: *pullRequest
+    template:
+      metadata:
+        name: "cluster-docusaurus-preview-app-{{ number }}"
+        namespace: argocd
+      spec:
+        project: docusaurus
+        sources:
+          - repoURL: https://github.com/muhlba91/fh-burgenland-bswe-3b-k8s-demos.git
+            targetRevision: HEAD
+            path: argocd/library/charts/demo-app
+            helm:
+              releaseName: docusaurus
+              valuesObject:
+                image:
+                  repository: quay.io/muhlba91/fh-burgenland-bswe-3b-docusaurus
+                  tag: "{{ head_sha }}"
+                ingress:
+                  enabled: true
+                  hosts:
+                    - host: "docusaurus-{{ number }}.demos.bsweb3.student.muehlbachler.xyz"
+                      paths:
+                        - path: /
+                          pathType: ImplementationSpecific
+                  tls:
+                    - secretName: docusaurus-tls-cert
+                      hosts:
+                        - "docusaurus-{{ number }}.demos.bsweb3.student.muehlbachler.xyz"
+        destination:
+          namespace: docusaurus
+          server: "https://cluster-docusaurus-{{ number }}.cluster-docusaurus-{{ number }}"
+        syncPolicy:
+          automated:
+            prune: false
+            allowEmpty: false
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true
+            - FailOnSharedResource=true
