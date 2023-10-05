@@ -88,7 +88,7 @@ applicationsets:
             targetRevision: HEAD
             path: argocd/library/charts/demo-app
             helm:
-              releaseName: "cluster-demo-app-{{ name }}"
+              releaseName: demo-app
               valuesObject:
                 ingress:
                   enabled: true
