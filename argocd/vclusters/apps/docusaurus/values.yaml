@@ -1,10 +1,10 @@
 ---
 pullRequest: &pullRequest
-  github:
-    owner: muhlba91
-    repo: fh-burgenland-bswe-3b-docusaurus
-    appSecretName: fh-burgenland-bswe-3b-creds
-  requeueAfterSeconds: 300
+  - github:
+      owner: muhlba91
+      repo: fh-burgenland-bswe-3b-docusaurus
+      appSecretName: fh-burgenland-bswe-3b-creds
+    requeueAfterSeconds: 300
 
 applicationsets:
   - name: docusaurus-vcluster
