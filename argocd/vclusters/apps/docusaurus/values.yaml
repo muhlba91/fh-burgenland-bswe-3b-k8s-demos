@@ -6,7 +6,7 @@ generator: &pullRequest
         repo: fh-burgenland-bswe-3b-docusaurus
         appSecretName: fh-burgenland-bswe-3b-creds
       filters:
-        branchMatch: "((?!renovate).)*"
+        - branchMatch: "((?!renovate).)*"
       requeueAfterSeconds: 300
 
 applicationsets:
