@@ -14,7 +14,7 @@ global:
       enabled: true
       valueFiles:
         - values.yaml
-    enableAutomated: false
+    enableAutomated: true
     syncOptions: []
 
 projects:
