@@ -1,15 +1,15 @@
 ---
-pullRequest: &pullRequest
-  - github:
-      owner: muhlba91
-      repo: fh-burgenland-bswe-3b-docusaurus
-      appSecretName: fh-burgenland-bswe-3b-creds
-    requeueAfterSeconds: 300
+generator: &pullRequest
+  - pullRequest:
+      github:
+        owner: muhlba91
+        repo: fh-burgenland-bswe-3b-docusaurus
+        appSecretName: fh-burgenland-bswe-3b-creds
+      requeueAfterSeconds: 300
 
 applicationsets:
   - name: docusaurus-vcluster
-    generators:
-      pullRequest: *pullRequest
+    generators: *pullRequest
     template:
       metadata:
         name: "cluster-docusaurus-{{ number }}"
@@ -47,8 +47,7 @@ applicationsets:
             - CreateNamespace=true
             - FailOnSharedResource=true
   - name: docusaurus-vcluster-hostpath-mapper
-    generators:
-      pullRequest: *pullRequest
+    generators: *pullRequest
     template:
       metadata:
         name: "cluster-docusaurus-hostpath-mapper-{{ number }}"
@@ -76,8 +75,7 @@ applicationsets:
             - CreateNamespace=true
             - FailOnSharedResource=true
   - name: docusaurus-vcluster-preview-app
-    generators:
-      pullRequest: *pullRequest
+    generators: *pullRequest
     template:
       metadata:
         name: "cluster-docusaurus-preview-app-{{ number }}"
