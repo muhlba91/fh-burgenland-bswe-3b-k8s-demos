@@ -80,7 +80,7 @@ applicationsets:
     generators: *pullRequest
     template:
       metadata:
-        name: "cluster-docusaurus-preview-app-{{ number }}"
+        name: "docusaurus-{{ number }}"
         namespace: argocd
       spec:
         project: docusaurus
