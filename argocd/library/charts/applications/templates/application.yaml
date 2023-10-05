@@ -22,6 +22,9 @@ spec:
       {{- if not (and $app.sourceRepoURL $app.sourceTargetRevision) }}
       path: {{ $app.path }}
       {{- end }}
+      {{- if $app.sourceRepoChart }}
+      chart: {{ $app.sourceRepoChart }}
+      {{- end }}
       {{- if default (eq $.Values.global.spec.helm.enabled true) (eq $app.helm true) }}
       helm:
         releaseName: {{ tpl (default $appName $app.releaseName) $ }}

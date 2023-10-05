@@ -25,4 +25,5 @@ applications:
     project: vclusters
     sourceRepoURL: https://argoproj.github.io/argo-helm
     sourceTargetRevision: 1.4.1
+    sourceRepoChart: argocd-apps
     valuesPath: argocd/vclusters/clusters
