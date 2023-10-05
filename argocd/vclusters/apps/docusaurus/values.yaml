@@ -83,7 +83,7 @@ applicationsets:
         name: "docusaurus-{{ number }}"
         namespace: argocd
         annotations:
-          notifications.argoproj.io/subscribe.app-deployed.github: ""
+          notifications.argoproj.io/subscribe.on-deployed.github: ""
       spec:
         project: docusaurus
         sources:
