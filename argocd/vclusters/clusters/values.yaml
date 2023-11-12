@@ -1,6 +1,12 @@
 ---
 vclusters: &vclusters
   - name: demo
+  - name: group-1
+  - name: group-2
+  - name: group-3
+  - name: group-4
+  - name: group-5
+  - name: group-6
 
 applicationsets:
   - name: vcluster
@@ -93,16 +99,16 @@ applicationsets:
                 ingress:
                   enabled: true
                   hosts:
-                    - host: "demo-cluster-{{ name }}.apps.bsweb3.student.muehlbachler.xyz"
+                    - host: "demo-{{ name }}.apps.bsweb3.student.muehlbachler.xyz"
                       paths:
                         - path: /
                           pathType: ImplementationSpecific
                   tls:
                     - secretName: demo-app-tls-cert
                       hosts:
-                        - "demo-cluster-{{ name }}.apps.bsweb3.student.muehlbachler.xyz"
+                        - "demo-{{ name }}.apps.bsweb3.student.muehlbachler.xyz"
         destination:
-          namespace: demo-app
+          namespace: demo
           server: "https://cluster-{{ name }}.cluster-{{ name }}"
         syncPolicy:
           automated:

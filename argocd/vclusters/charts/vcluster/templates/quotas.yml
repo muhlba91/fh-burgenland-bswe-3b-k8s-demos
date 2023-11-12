@@ -9,9 +9,9 @@ spec:
     requests.memory: 3Gi
     requests.storage: 2Gi
     requests.ephemeral-storage: 3Gi
-    limits.cpu: "6"
-    limits.memory: 6Gi
-    limits.ephemeral-storage: 6Gi
+    limits.cpu: "3"
+    limits.memory: 4Gi
+    limits.ephemeral-storage: 4Gi
 
 ---
 apiVersion: v1
@@ -39,11 +39,11 @@ spec:
       memory: 512Mi
       cpu: "1"
     defaultRequest:
-      memory: 128Mi
-      cpu: 100m
-    min:
       memory: 64Mi
       cpu: 10m
+    min:
+      memory: 8Mi
+      cpu: 5m
     max:
       memory: 2Gi
       cpu: "2"
