@@ -1,4 +1,6 @@
 ---
+group: group-X
+
 replicaCount: 1
 
 image:
@@ -75,17 +77,16 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
+volumes:
+  - name: html-files
+    configMap:
+      name: html-files
 
 # Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
+volumeMounts:
+  - name: html-files
+    mountPath: /usr/share/nginx/html/
+    readOnly: true
 
 nodeSelector: {}
 
