@@ -8,6 +8,7 @@ vclusters: &vclusters
   - name: group-5
   - name: group-6
   - name: group-7
+  - name: group-8
 
 applicationsets:
   - name: vcluster
