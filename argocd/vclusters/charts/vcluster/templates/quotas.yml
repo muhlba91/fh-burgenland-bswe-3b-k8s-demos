@@ -7,10 +7,10 @@ spec:
   hard:
     requests.cpu: "3"
     requests.memory: 3Gi
-    requests.storage: 2Gi
+    requests.storage: 4Gi
     requests.ephemeral-storage: 3Gi
-    limits.cpu: "4"
-    limits.memory: 4Gi
+    limits.cpu: "6"
+    limits.memory: 8Gi
     limits.ephemeral-storage: 4Gi
 
 ---
