@@ -55,9 +55,9 @@ spec:
     - metadata:
         name: mysql-data
       spec:
-        storageClassName: csi-hostpath-sc
+        storageClassName: openebs-hostpath
         accessModes:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 1Gi
+            storage: 500Mi

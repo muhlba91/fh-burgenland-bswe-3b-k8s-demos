@@ -8,9 +8,9 @@ metadata:
     app.kubernetes.io/name: wordpress
     app.kubernetes.io/component: wordpress
 spec:
-  storageClassName: csi-hostpath-sc
+  storageClassName: openebs-hostpath
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 500Mi

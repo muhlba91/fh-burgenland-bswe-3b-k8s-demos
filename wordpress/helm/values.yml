@@ -2,14 +2,17 @@
 # see: https://github.com/bitnami/charts/blob/main/bitnami/wordpress/values.yaml
 wordpressPassword: password
 
+service:
+  type: NodePort
+
 persistence:
-  storageClass: csi-hostpath-sc
-  size: 2Gi
+  storageClass: openebs-hostpath
+  size: 500Mi
 volumePermissions:
   enabled: true
 
 mariadb:
   primary:
     persistence:
-      storageClass: csi-hostpath-sc
-      size: 1Gi
+      storageClass: openebs-hostpath
+      size: 500Mi
